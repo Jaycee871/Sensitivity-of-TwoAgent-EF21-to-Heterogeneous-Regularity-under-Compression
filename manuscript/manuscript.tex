@@ -1,0 +1,64 @@
+% Generated from the official 2026 MDPI ACS LaTeX template.
+% Phase 24 author-review build for Mathematics (MDPI).
+\documentclass[mathematics,article,submit,moreauthors]{Definitions/mdpi}
+
+
+\firstpage{1}
+\makeatletter
+\setcounter{page}{\@firstpage}
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2026}
+\copyrightyear{2026}
+\datereceived{ }
+\daterevised{ }
+\dateaccepted{ }
+\datepublished{ }
+
+\Title{Sensitivity of Two-Agent \texorpdfstring{EF$^{21}$}{EF21} to Heterogeneous Regularity under Compression}
+
+% Final ORCID identifiers should be inserted before submission if applicable.
+\Author{Pack Kwan Low $^{1}$ and Fu-Hsing Wang $^{1,*}$}
+\AuthorNames{Pack Kwan Low and Fu-Hsing Wang}
+
+\address{$^{1}$ \quad Department of Information Management,
+Chinese Culture University,
+55 Hwa-Kang Rd.,
+Yang-Ming-Shan,
+Taipei 11114,
+Taiwan}
+
+\corres{Correspondence: wfx2@ulive.pccu.edu.tw}
+
+\abstract{
+Error Feedback 21 (EF21) provides a communication-efficient framework for distributed optimization under contractive compression, but the influence of heterogeneous local regularity remains difficult to interpret directly from existing convergence expressions. For the two-agent case with heterogeneous regularity parameters, the empirical relation reported by Berg Thomsen, Taylor, and Dieuleveut and referred to in this study as the Heterogeneity-Aware Convergence Law (HAC Law) characterizes the predicted optimal convergence rate of EF21 as the largest real root of a cubic polynomial. Before conducting the sensitivity analysis, we independently reproduced this polynomial characterization and evaluated it across 10,500 parameter configurations. The reproduction confirmed numerical consistency with the stated polynomial and with the homogeneous theoretical limit on the tested domain. We then study how communication compression interacts with heterogeneous local regularity under controlled parameterizations. An equal-smoothness baseline first varies local strong-convexity imbalance while keeping average conditioning fixed. Greater imbalance reduces the available contraction margin, and stronger compression increases the relative effect. We next allow local smoothness and strong convexity to vary independently while preserving their arithmetic means. Under this parameterization, the empirical step size and one coefficient of the cubic remain invariant, while the remaining regularity dependence is captured by a single nonnegative mismatch quantity equal to the weighted variance of local condition-shape coordinates. When smoothness and strong-convexity heterogeneity are proportionally aligned, this mismatch vanishes and the cubic reduces to the homogeneous controlled case. Misalignment makes the mismatch positive and increases the predicted contraction factor. Symbolic analysis further shows that the cubic has three distinct roots between zero and one and that its selected largest root increases with the coefficient carrying the mismatch term. These results distinguish heterogeneity magnitude from regularity mismatch and provide a structural interpretation of heterogeneous EF21 behavior under compression. All conclusions remain conditional on HAC Law and do not constitute a general convergence theorem.
+}
+\keyword{distributed optimization; error feedback; \texorpdfstring{EF$^{21}$}{EF21}; communication compression; regularity heterogeneity; performance estimation; sensitivity analysis} 
+
+% Submission-draft display guard: the MDPI class synthesizes a placeholder DOI
+% from volume/issue/article-number defaults even in submit mode. Suppress that
+% footer in the author-facing draft; the Editorial Office assigns the real DOI.
+\makeatletter
+\AtBeginDocument{%
+  \ifthenelse{\equal{\@status}{submit}}{%
+    \rfoot{}%
+    \fancypagestyle{plain}{\fancyfoot[R]{}}%
+  }{}%
+}
+\makeatother
+
+\setlength{\headheight}{19pt}
+
+\begin{document}
+
+
+% Section files are split for repository maintainability.
+\input{parts/01_introduction.tex}
+\input{parts/02_background.tex}
+\input{parts/03_methods.tex}
+\input{parts/04_results.tex}
+\input{parts/05_discussion.tex}
+\input{parts/06_limitations.tex}
+\input{parts/07_conclusion_and_backmatter.tex}
