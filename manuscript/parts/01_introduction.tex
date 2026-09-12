@@ -1,0 +1,79 @@
+\section{Introduction}
+
+The rapid growth of distributed and federated learning has significantly increased the importance of communication-efficient optimization algorithms. In modern large-scale learning systems, a large number of agents cooperatively train a global model while communicating with a central server. Since the transmitted gradient vectors often contain millions or even billions of parameters, communication remains one of the primary bottlenecks in large-scale distributed and federated optimization, motivating the development of gradient quantization, sparsification, and other compressed communication techniques. While these methods substantially reduce communication overhead, they inevitably introduce compression errors that may deteriorate convergence performance. To mitigate this issue, error-feedback mechanisms accumulate and re-inject compression residuals into subsequent iterations, thereby compensating for information loss and recovering favorable convergence properties even under biased or lossy compression schemes \citep{seide2014onebit,stich2018sparsified,karimireddy2019error}. Such mechanisms have become a central component of modern communication-efficient optimization algorithms.
+
+Among existing error-compensation approaches, \emph{Error Feedback 21} (EF$^{21}$), proposed by Richt\'arik et al., has emerged as a particularly influential framework \citep{richtarik2021ef21}. By maintaining local gradient estimators and transmitting compressed gradient differences rather than compressed gradients directly, EF$^{21}$ provides a simpler and more stable formulation of error feedback in distributed environments. Recent theoretical developments have established tight convergence guarantees, optimal step-size choices, and Lyapunov-based analyses for EF$^{21}$ under contractive compression and strongly convex objectives, demonstrating its effectiveness in communication-constrained distributed learning \citep{thomsen2026tight}.
+
+Despite these advances, the role of agent heterogeneity remains insufficiently understood. In practical federated learning systems, local objectives often exhibit substantial differences in data distribution, smoothness, and conditioning. Although recent work has derived empirical convergence laws for heterogeneous EF$^{21}$ systems \citep{thomsen2026tight}, a systematic understanding of how heterogeneity interacts with compression error to influence convergence speed and stability is still lacking. In particular, it remains unclear whether increasing heterogeneity merely slows convergence or fundamentally changes the sensitivity of EF$^{21}$ to compression-induced perturbations.
+
+Recent evidence suggests that the interaction between communication compression and agent heterogeneity plays a fundamental role in determining the performance of error-feedback algorithms. In particular, Berg Thomsen et al. \citep{thomsen2026tight} reported empirical characterizations of EF and EF$^{21}$ under heterogeneous regularity parameters. In this study, we refer to this observation as the \emph{Heterogeneity-Aware Convergence Law}, hereafter abbreviated as \emph{HAC Law}, because it captures how compression effects and disparities in local objective regularity jointly shape the predicted convergence behavior across agents. More specifically, for the heterogeneous two-agent EF$^{21}$ setting, HAC Law characterizes the predicted optimal convergence rate as the largest real root of an agent-dependent cubic polynomial. This characterization shows that a global condition number alone does not fully describe the predicted contraction behavior when local smoothness and strong-convexity parameters differ. The underlying empirical characterization was identified through extensive \emph{Performance Estimation Problem (PEP)} experiments and numerical exploration, with verification details reported in the source study. These observations motivate a systematic investigation of how varying degrees of regularity heterogeneity and communication compression jointly affect the stability and convergence behavior of error-feedback methods.
+
+The source relation is supported by numerical Performance Estimation Problem
+experiments and Lyapunov feasibility analysis. For Empirical Law 4.3, the
+candidate rate $\rho^\star$ is taken as the largest real root of the cubic
+polynomial and the step size is set to the empirical optimum $\eta^\star$.
+Feasibility of $(\rho^\star,\eta^\star)$ is checked for EF$^{21}$ and EF
+using the corresponding Lyapunov linear matrix inequalities. If the EF$^{21}$
+feasibility check fails, the source protocol compares $\rho^\star$ with a
+simplified Lyapunov rate computed by PEPit \citep{goujaud2024pepit} and accepts the fallback check when
+the difference is within $10^{-4}$. Tightness is then challenged with the
+improved target $0.99\rho^\star$. The source study reports no successful
+strict improvement in the verification experiments \citep{thomsen2026tight}.
+
+Before conducting the sensitivity analysis, we independently reconstructed the cubic polynomial specified in HAC Law and evaluated it across the complete 10,500-configuration reproduction grid. The audit checks the polynomial residual at every selected root, compares the implementation with a source helper pinned to a specific commit, tests the homogeneous limit against the proved EF$^{21}$ rate, and applies mutated-polynomial negative controls. High-precision SDPA calculations provide an additional solver-level reference on selected cases. The maximum polynomial residual across the reproduction grid is $1.742\times10^{-15}$. These checks support numerical consistency with the stated polynomial on the tested domain; they do not establish a universal error bound or prove HAC Law.
+
+Accordingly, this study quantifies the sensitivity of EF$^{21}$ to heterogeneous local regularity and compression using HAC Law as a numerical and analytical reference.
+
+The literature uses the term ``heterogeneity'' for several distinct phenomena.
+\emph{Statistical heterogeneity} describes differences in local data
+distributions across workers. These distributional differences can lead to
+differences in the corresponding stochastic gradients.
+\emph{Regularity heterogeneity} describes differences in worker-specific
+smoothness constants and strong-convexity constants. Such differences also
+induce variation in local conditioning.
+
+The distinction is important because methods designed to accommodate
+statistical heterogeneity do not necessarily model a separate
+strong-convexity constant for each worker. For example, later EF$^{21}$ work
+improves dependence on heterogeneous smoothness constants and introduces
+smoothness-aware weighting \citep{richtarik2024reloaded}. EControl also permits
+worker-dependent smoothness constants, while strong convexity is imposed on
+the averaged objective through a single global parameter
+\citep{gao2024econtrol}.
+
+This study focuses on worker-specific regularity heterogeneity in the paired
+local parameters $(L_i,\mu_i)$. Statistical heterogeneity lies outside the
+scope of the analysis. We further examine whether the smoothness and
+strong-convexity ratios are proportionally aligned across the two workers.
+This alignment determines the regularity-mismatch term in HAC Law,
+so the effect cannot be characterized by heterogeneity magnitude alone.
+
+Berg Thomsen, Taylor, and Dieuleveut developed tight analyses of classic error feedback and EF$^{21}$ and explicitly distinguished proved results from empirical laws in more challenging heterogeneous regimes \citep{thomsen2026tight}. The present analysis uses HAC Law for $n=2$, which allows the local smoothness and strong-convexity parameters to differ across agents. For a specified compression level and pair of local regularity parameters, the law defines an empirical optimal step size and a cubic polynomial. The largest real root of that cubic gives the predicted optimal contraction factor.
+
+Ref.~\cite{thomsen2026tight} labels this relation an \emph{empirical law} and does not state it as a general theorem for the full heterogeneous setting. This distinction is central to the analysis. The present study therefore separates validation from structural interpretation. The source PEP and Lyapunov evidence is reviewed first, followed by an independent numerical reproduction. The sensitivity analysis is then restricted to the cubic polynomial specified in HAC Law. Every statement below about the predicted contraction factor remains conditional on this relation.
+
+The source analysis is closely connected to the \emph{Performance Estimation Problem (PEP)} framework, in which worst-case analysis of first-order methods can be formulated as semidefinite optimization \citep{drori2014performance,taylor2017exact}. Related PEP work exploiting agent symmetries further illustrates why two-agent reductions can be structurally informative in distributed performance analysis, although under different algorithms and assumptions \citep{colla2026symmetries}.
+
+The present study asks two nested questions:
+
+\begin{quote}
+\textbf{How do local regularity heterogeneity and communication compression jointly affect the contraction prediction of HAC Law when average conditioning is held fixed?}
+\end{quote}
+
+and, after both smoothness and strong convexity are allowed to vary,
+
+\begin{quote}
+\textbf{Can the apparent two-dimensional heterogeneity dependence be reduced to a smaller structural coordinate that explains when heterogeneity is harmful and when it is invisible to HAC Law?}
+\end{quote}
+
+Under fixed arithmetic means, the apparent two-dimensional heterogeneity dependence collapses onto a single nonnegative mismatch coordinate, as visualized in Figure~\ref{fig:rate-collapse}.
+
+The main contributions are summarized below.
+
+\begin{enumerate}
+\item \textbf{Independent reproduction and numerical audit of HAC Law.} The PEP and Lyapunov verification protocol reported by Berg Thomsen et al.\ is examined together with an independent replay of all 10,500 cubic configurations. The replay reaches a maximum polynomial residual of $1.742\times10^{-15}$, agrees with the homogeneous theoretical limit within $8.389\times10^{-13}$, rejects all mutated-polynomial controls, and finds no one-percent improvement in the audited high-precision reference checks.
+\item \textbf{Controlled parameterization and baseline landscape.} A fixed-average equal-smoothness baseline is constructed for the cubic polynomial in HAC Law. The joint compression and heterogeneity landscape is evaluated over 216,027 configurations, and the resulting guidelines for contraction margin retention are checked with off-grid samples and boundary refinement.
+\item \textbf{Mismatch factorization and alignment invariance.} The fixed-average design is extended to allow smoothness and strong-convexity heterogeneity to vary simultaneously. The gap between the source coefficients of HAC Law is shown to be exactly the weighted variance of local condition-shape coordinates. Under this parameterization, the gap factors through $(\tau_L-\tau_\mu)^2$, so proportional alignment leaves the cubic unchanged.
+\item \textbf{Generic root sensitivity.} The root structure of the source cubic is examined on the stated admissible domain. The cubic has three distinct roots in $(0,1)$, its selected largest root exceeds $\sqrt{\epsilon}$, and $\mathrm{d}\rho^\star/\mathrm{d}K_1>0$. Together with the fixed-average factorization, this implies that every admissible nonzero mismatch strictly worsens the predicted contraction factor relative to the aligned path.
+\end{enumerate}
+
