@@ -1,0 +1,220 @@
+\section{Methods}
+
+\subsection{Independent validation metrics}
+
+The independent validation reports four complementary quantities. First, the cubic residual $|Q(\rho^\star)|$ checks whether the selected numerical root satisfies the stated polynomial. Second, the implementation difference compares the independently computed result with the pinned source helper. Third, the homogeneous-limit difference compares the heterogeneous cubic at the homogeneous parameter limit with the proved EF21 contraction rate from Theorem 3.1 of Ref.~\cite{thomsen2026tight}. Fourth, solver-level tightness checks test whether the improved target $0.99\rho^\star$ can be certified on the audited high-precision reference cells.
+
+Negative controls are included to distinguish reproducibility from a permissive numerical test. Each of the 10,500 grid cells is paired with a mutated-polynomial control. A valid validation procedure should accept the source polynomial and reject the modified relation. The validation outcomes are reported before the sensitivity results so that the numerical status of the source relation is explicit before it is used as an analytical reference.
+
+\subsection{Equal-smoothness baseline}
+
+The baseline controlled path sets
+
+\[
+n=2,\qquad L_1=L_2=L=1,
+\]
+
+and fixes the average strong convexity
+
+\[
+\bar\mu=\frac{\mu_1+\mu_2}{2}.
+\]
+
+Strong-convexity heterogeneity is parameterized by
+
+\[
+\tau=\frac{\mu_2}{\mu_1},\qquad 0<\tau\le 1.
+\]
+
+Holding $\bar{\mu}$ fixed gives
+
+\[
+\mu_1=\frac{2\bar\mu}{1+\tau},
+\qquad
+\mu_2=\frac{2\bar\mu\tau}{1+\tau}.
+\]
+
+Thus, varying $\tau$ changes the imbalance in local strong convexity while preserving its arithmetic mean. The homogeneous case corresponds to $\tau=1$.
+
+\subsection{Conditioning strata and baseline outcomes}
+
+With $L=1$, define
+
+\[
+\bar\kappa=\frac{L}{\bar\mu}.
+\]
+
+The baseline studies $\bar{\kappa}\in \{2,10,100\}$. For each $(\tau,\epsilon,\bar{\kappa})$ cell, the analysis records the empirical step size, the selected largest real root $\rho^\star$, the homogeneous baseline $\rho_{\mathrm{hom}}$ from Theorem 3.1 of Ref.~\cite{thomsen2026tight}, the absolute penalty
+
+\[
+H_{\rm abs}=\rho^\star-\rho_{\mathrm{hom}},
+\]
+
+the normalized penalty
+
+\[
+H_{\rm norm}=
+\frac{\rho^\star-\rho_{\mathrm{hom}}}
+{1-\rho_{\mathrm{hom}}},
+\]
+
+and contraction-margin retention
+
+\[
+R=
+\frac{1-\rho^\star}
+{1-\rho_{\mathrm{hom}}}
+=1-H_{\rm norm}.
+\]
+
+This normalization prevents a small absolute difference near $\rho=1$ from being interpreted as negligible when the remaining contraction margin is itself already small.
+
+\subsection{Baseline dense study and retention boundaries}
+
+The primary baseline grid uses
+
+\begin{itemize}
+\item $\tau\in [0.05,1]$, 381 evenly spaced points;
+\item $\epsilon\in [0.01,0.95]$, 189 evenly spaced points;
+\item $\bar{\kappa}\in \{2,10,100\}$.
+\end{itemize}
+
+This yields
+
+\[
+381\times 189\times 3=216{,}027
+\]
+
+controlled configurations.
+
+For a target retention $R_0$, the one-sided operating boundary is the smallest studied $\tau$ satisfying
+
+\[
+R(\tau,\epsilon,\bar\kappa)\ge R_0.
+\]
+
+The main guideline uses $R_0=0.99$; finite-grid estimates are compared with bisection references at $\epsilon=0.95$.
+
+\subsection{Baseline off-grid robustness}
+
+The deterministic off-grid stress test evaluates 20,000 paired off-grid samples per conditioning stratum. Each comparison tests whether the numerical ordering with respect to $\tau$ or $\epsilon$ is consistent with the dense-grid pattern, while also recording the residual of the cubic at each selected root. These checks assess numerical robustness; they do not constitute proofs of global monotonicity.
+
+\subsection{Full-regularity fixed-average parameterization}
+
+The full extension releases the equal-smoothness constraint and fixes both arithmetic means:
+
+\[
+\bar L=\frac{L_1+L_2}{2},
+\qquad
+\bar\mu=\frac{\mu_1+\mu_2}{2},
+\qquad
+\bar\kappa=\frac{\bar L}{\bar\mu}.
+\]
+
+Smoothness and strong-convexity heterogeneity are varied independently through
+
+\[
+\tau_L=\frac{L_2}{L_1},
+\qquad
+\tau_\mu=\frac{\mu_2}{\mu_1},
+\qquad
+0<\tau_L,\tau_\mu\le 1.
+\]
+
+The controlled reconstruction is
+
+\[
+L_1=\frac{2\bar L}{1+\tau_L},
+\qquad
+L_2=\tau_L L_1,
+\]
+
+\[
+\mu_1=\frac{2\bar\mu}{1+\tau_\mu},
+\qquad
+\mu_2=\tau_\mu\mu_1.
+\]
+
+A cell is admissible only when $0<\mu_i\le L_i$ for both workers. Combinations that violate these local regularity conditions are excluded from the audit; no projection or coercion is applied.
+
+The default full-regularity audit uses 31 values for each heterogeneity ratio, 95 compression values, and three conditioning strata:
+
+\[
+31\times31\times95\times3=273{,}885
+\]
+
+requested cells, of which 258,400 satisfy the local regularity constraints.
+
+
+\subsection{Fixed-average mismatch factorization}
+
+Using the weighted-moment representation established in Section~\ref{sec:weighted-moment}, we now examine the source coefficients under the fixed-average parameterization. Because both arithmetic means are fixed, the empirical step size from HAC Law is constant across $(\tau_L,\tau_\mu)$ for fixed $(\bar L,\bar{\mu},\epsilon)$. The same controlled parameterization also yields the exact invariant
+
+\[
+K_2=\left(\frac{\bar\kappa-1}{\bar\kappa+1}\right)^2.
+\]
+
+The remaining regularity dependence is carried by $K_1-K_2$. Algebraic simplification yields
+
+\[
+K_1-K_2=
+\frac{4\bar\kappa^2(\tau_L-\tau_\mu)^2}
+{(\bar\kappa+1)^2
+(\tau_L+\bar\kappa\tau_\mu+\bar\kappa+1)
+(\bar\kappa\tau_L\tau_\mu+\tau_L\tau_\mu+\bar\kappa\tau_L+\tau_\mu)}.
+\]
+
+Every denominator factor is positive on the admissible positive domain. Hence
+
+\[
+K_1\ge K_2,
+\]
+
+with equality exactly when
+
+\[
+\tau_L=\tau_\mu.
+\]
+
+This aligned path represents proportional local regularity scaling: the workers may remain heterogeneous in their raw $L_i$ and $\mu_i$ values, while the smoothness and strong-convexity ratios vary in lockstep.
+
+\subsection{Generic symbolic root and sensitivity audit}
+
+The full-regularity structure motivates a cubic-coordinate analysis independent of any particular $(\tau_L,\tau_\mu)$ grid. For the studied $\bar{\kappa}>1$ setting, positivity of the local regularity parameters and the weighted-moment representation imply
+
+\[
+0<K_2\le K_1<1,
+\qquad
+0<s<1.
+\]
+
+A separate Wolfram Language verification script analyzes the source cubic on this generic domain. The symbolic certificate establishes a strictly positive discriminant, excludes roots at or below zero and at or above one, and evaluates
+
+\[
+Q(s)=K_2(s-1)^3s^2<0.
+\]
+
+Thus all three roots are distinct and lie in $(0,1)$, while the selected largest root satisfies
+
+\[
+\rho^\star>s=\sqrt\epsilon.
+\]
+
+Implicit differentiation with respect to $K_1$ gives
+
+\[
+\frac{d\rho^\star}{dK_1}
+=
+\frac{(1-s)^2}{1+s}
+\frac{s\rho^\star(\rho^\star-s)}{Q'(\rho^\star)}.
+\]
+
+At the largest simple real root, $Q'(\rho^\star)>0$. Therefore
+
+\[
+\frac{d\rho^\star}{dK_1}>0.
+\]
+
+\subsection{AI-Assisted Research Workflow and Verification}
+AI-assisted tools were used in study design, code development, computational planning, and manuscript preparation; the scope of this assistance is disclosed in the Acknowledgments. Symbolic claims reported in this manuscript were independently checked with Wolfram Language 15.0.1.
+
