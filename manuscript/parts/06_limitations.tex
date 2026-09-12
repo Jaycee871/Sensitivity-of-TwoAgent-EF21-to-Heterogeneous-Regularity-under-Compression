@@ -1,0 +1,16 @@
+\section{Limitations}
+
+\begin{enumerate}
+\item HAC Law is used as a source relation from Ref.~\cite{thomsen2026tight}. The present study does not establish that law in full generality.
+\item The validation establishes numerical reproducibility and consistency with the audited PEP and Lyapunov evidence. The $10^{-4}$ fallback tolerance and the one-percent tightness challenge are properties of the source verification protocol, not universal accuracy bounds for HAC Law.
+\item The independent reproduction did not re-execute the complete proprietary MOSEK workload. Hash-pinned completed transcripts were audited where needed, and open-solver checks were executed independently.
+\item The analysis depends on the form of HAC Law in the cited version of Ref.~\cite{thomsen2026tight}. A future revision of that expression would require the fixed-average factorization and sensitivity analysis to be checked again.
+\item The full-regularity cubic analysis, its fixed-average factorization, and the root-sensitivity result are limited to two agents ($n=2$). Only the weighted-moment variance identity is algebraically more general, as discussed in Section~\ref{sec:generalizability}.
+\item Numerical monotonicity in the equal-smoothness study is reported only for $\tau\in [0.05,1]$, $\epsilon\in [0.01,0.95]$, and the selected conditioning strata. The off-grid calculations provide robustness evidence but no proof of global monotonicity.
+\item For the factorized discriminant calculation, the conditioning values are restricted to $\bar{\kappa}\in \{2,10,100\}$. The broader root statement comes from a separate certificate on the stated $(s,K_1,K_2)$ domain.
+\item Cells that violate $\mu_i\le L_i$ are excluded from the full-regularity grid. No conclusion is extended to those invalid local regularity combinations.
+\item The contraction-margin boundary summarizes rate retention; it is not an optimization of communication cost.
+\item The related-work audit covers the named EF literature chain. We make no claim of universal novelty beyond this scope.
+\item Large stochastic learning experiments are outside this study. The cubic characterization should not be used to infer their behavior.
+\end{enumerate}
+
