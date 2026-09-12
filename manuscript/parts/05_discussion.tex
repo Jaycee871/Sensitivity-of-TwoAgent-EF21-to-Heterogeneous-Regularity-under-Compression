@@ -1,0 +1,45 @@
+\section{Discussion}
+
+\subsection{From heterogeneity magnitude to heterogeneity mismatch}
+
+The equal-smoothness experiment provides an initial picture in which larger local curvature imbalance is associated with a worse contraction prediction, and stronger compression increases the relative burden. The full-regularity analysis refines this interpretation. Once smoothness and strong convexity vary independently, the cubic depends on both the extent of worker differences and the alignment of the two regularity ratios.
+
+This distinction is visible on the path $\tau_L=\tau_\mu$. The workers may still differ in their absolute regularity scales, yet they have the same local condition-shape coordinate. In that case, the gap $K_1-K_2$ is zero and the cubic gives the homogeneous controlled prediction. Away from the diagonal, the local condition-shape coordinates separate and the coefficient gap becomes positive.
+
+\subsection{What comes from the source and what is derived here}
+
+Two steps in the analysis should be kept separate. The identity
+
+\[
+K_1-K_2=\operatorname{Var}_w(q_i)
+\]
+
+follows directly from rewriting the coefficients in HAC Law. It identifies $K_1$ as a weighted second moment and $K_2$ as the square of the corresponding weighted mean. The factorization in $(\bar{\kappa},\tau_L,\tau_\mu)$ is obtained only after imposing the fixed-average parameterization used in this study; this is the step that makes the alignment condition explicit.
+
+The same division applies to the root results. The cubic itself is taken from HAC Law in Ref.~\cite{thomsen2026tight}. Its numerical use in this paper is supported by the source PEP and Lyapunov verification and by the independent reproduction reported above. The discriminant calculation, root localization, and implicit sensitivity analysis are carried out here to describe the behavior of that source relation. The validation supports this use on the audited domain without establishing the empirical relation as a general theorem.
+
+\subsection{Algebraic generalizability beyond two agents}\label{sec:generalizability}
+
+The weighted-moment identity is algebraically valid beyond the two-agent case. For any finite set of coordinates $q_i$ and normalized nonnegative weights $w_i$ satisfying $\sum_i w_i=1$,
+
+\[
+\sum_i w_iq_i^2-
+\left(\sum_i w_iq_i\right)^2
+=
+\operatorname{Var}_w(q_i).
+\]
+
+A coefficient pair with the same moment structure therefore admits the same variance interpretation for $n>2$. The present results do not extend the full HAC Law analysis to arbitrary $n$, however. The identification with the source coefficient structure, the fixed-average factorization, and the cubic root-sensitivity result are all tied to the $n=2$ relation in HAC Law studied here. A separate convergence or performance-estimation analysis would be needed for more agents.
+
+\subsection{Relation to prior \texorpdfstring{EF$^{21}$}{EF21} heterogeneity analyses}
+
+Heterogeneous smoothness has already been studied in the EF$^{21}$ family and is known to affect complexity bounds and weighting choices \citep{richtarik2024reloaded}. The mismatch coordinate considered here addresses a narrower question: the joint dependence on local $(L_i,\mu_i)$ pairs in HAC Law for $n=2$ under a fixed-average design.
+
+EControl considers a different regularity model \citep{gao2024econtrol}. Local $L_i$ values may vary, while strong convexity is imposed on the averaged objective through a single parameter. It therefore does not contain the same paired local regularity structure. In the related-work chain examined for this study, no theorem-level counterpart of the fixed-average factorization, alignment invariance, or cubic root-sensitivity result was identified.
+
+\subsection{Practical interpretation}
+
+For the equal-smoothness baseline, the retention ratio expresses how much of the homogeneous contraction margin remains after heterogeneity is introduced. The full-regularity analysis adds another distinction. Proportional scaling of local smoothness and strong convexity produces no regularity-mismatch penalty in the cubic. A difference between the two ratios makes the mismatch coordinate positive and worsens the selected root.
+
+This result provides a rate interpretation. It does not constitute a design rule for a complete distributed learning system because communication cost, stochastic effects, and several implementation details are absent from the cubic model. Its main value is the separation of two forms of heterogeneity that a conventional parameter sweep would otherwise combine.
+
