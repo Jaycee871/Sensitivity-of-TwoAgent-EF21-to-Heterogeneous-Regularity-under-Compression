@@ -1,0 +1,176 @@
+\section{Results}
+
+\subsection{Independent validation outcome}
+
+The independent replay covers all 10,500 cubic configurations. The maximum polynomial residual is $1.742\times10^{-15}$, and the maximum difference from the pinned source helper is zero at the stored numerical precision. At the homogeneous limit, the largest-root prediction agrees with the proved EF21 rate to within $8.389\times10^{-13}$. All 10,500 mutated-polynomial controls are rejected. The high-precision SDPA audit contains two reference cases and 72 associated improved-rate cells; none certifies the target $0.99\rho^\star$.
+
+These checks address two separate questions. The residual, helper comparison, homogeneous limit, and negative controls establish reproducibility of the cubic calculation. The PEP and Lyapunov checks address whether the candidate rate is consistent with the available worst-case numerical certificates. Taken together, the source evidence and the independent reproduction provide a numerical basis for using the cubic in the subsequent sensitivity study. They do not provide a universal approximation-error bound and do not replace a proof of HAC Law.
+
+\subsection{Equal-smoothness contraction landscape}
+
+Figure 1 maps $\rho^\star(\tau,\epsilon)$ for $\bar{\kappa}=10$. The predicted contraction becomes slower as compression error increases, and the heterogeneous surface separates progressively from the homogeneous edge as $\tau$ decreases.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/figure1_contraction_landscape.pdf}
+\caption{Optimal contraction factor across heterogeneity and compression at fixed average conditioning. The surface is evaluated from the cubic polynomial in HAC Law at $\bar{\kappa}=10$, with $\tau=\mu_2/\mu_1$ controlling worker heterogeneity while $(\mu_1+\mu_2)/2$ is held fixed. Smaller $\tau$ corresponds to stronger heterogeneity and larger $\epsilon$ to heavier compression error. The figure visualizes the joint variation of the largest admissible real root $\rho^\star$; values closer to one indicate slower linear contraction. The plot summarizes the cubic over the audited domain.\label{fig:contraction-landscape}}
+\end{figure}
+\unskip
+
+
+\subsection{Relative heterogeneity penalty}
+
+Figure 2 maps $H_{\mathrm{norm}}$ for the same conditioning stratum. Across the audited baseline grid, stronger strong-convexity heterogeneity increases the normalized penalty, while heavier compression amplifies the relative burden within the stated numerical tolerance.
+
+Across the dense grid, the maximum normalized penalties are approximately:
+
+\begin{itemize}
+\item 5.07\% for $\bar{\kappa}=2$;
+\item 1.70\% for $\bar{\kappa}=10$;
+\item 0.20\% for $\bar{\kappa}=100$.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/figure2_normalized_penalty.pdf}
+\caption{Relative loss of contraction margin caused by heterogeneity at $\bar{\kappa}=10$. The normalized heterogeneity penalty is $H_{\mathrm{norm}}=(\rho^\star-\rho_{\mathrm{hom}})/(1-\rho_{\mathrm{hom}})$, where $\rho_{\mathrm{hom}}$ is the homogeneous theoretical baseline evaluated at the same average conditioning and compression level. This normalization expresses the heterogeneous slowdown as a fraction of the contraction margin remaining under the homogeneous baseline.\label{fig:normalized-penalty}}
+\end{figure}
+\unskip
+
+
+\subsection{Interaction between compression and conditioning}
+
+At the strongest audited baseline heterogeneity, $\tau=0.05$, increasing $\epsilon$ from $0.01$ to $0.95$ multiplies the normalized penalty by approximately:
+
+\begin{itemize}
+\item $3.84\times$ for $\bar{\kappa}=2$;
+\item $3.12\times$ for $\bar{\kappa}=10$;
+\item $3.03\times$ for $\bar{\kappa}=100$.
+\end{itemize}
+
+The smaller relative penalty under poor conditioning should not be interpreted as faster convergence. In the $\bar{\kappa}=100$ dense study, every cell satisfies $\rho^\star\ge0.95$, and approximately 63.5\% satisfy $\rho^\star\ge0.99$. This stratum is already close to the non-contractive limit, leaving comparatively little contraction margin for heterogeneity to consume.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/figure3_conditioning_interaction.pdf}
+\caption{Compression amplifies the relative heterogeneity burden, with the magnitude depending on baseline conditioning. Curves show the normalized heterogeneity penalty versus compression error at the strongest audited heterogeneity ($\tau=0.05$) for $\bar{\kappa}\in\{2,10,100\}$. From $\epsilon=0.01$ to $0.95$, the normalized penalty increases by approximately $3.84\times$, $3.12\times$, and $3.03\times$ for $\bar{\kappa}=2,10,100$, respectively. The smaller relative penalty at $\bar{\kappa}=100$ should not be interpreted as faster convergence because that stratum is already close to the non-contractive limit over much of the audited domain.\label{fig:conditioning-interaction}}
+\end{figure}
+\unskip
+
+
+\subsection{Contraction-margin operating boundaries}
+
+Figure 4 converts the normalized penalty into a 99\% retention boundary. At $\epsilon=0.95$, bisection gives
+
+\begin{itemize}
+\item $\tau^\star=0.4076217486520454$ for $\bar{\kappa}=2$;
+\item $\tau^\star=0.17985615951449502$ for $\bar{\kappa}=10$;
+\item full-domain satisfaction for the audited range $\tau\ge 0.05$ when $\bar{\kappa}=100$.
+\end{itemize}
+
+These thresholds provide operating summaries of the cubic within the audited domain.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/figure4_retention_boundary.pdf}
+\caption{Minimum heterogeneity ratio required to retain 99\% of the homogeneous contraction margin. For each compression level and conditioning stratum, the boundary reports the smallest audited $\tau$ satisfying $R=(1-\rho^\star)/(1-\rho_{\mathrm{hom}})\ge 0.99$. At $\epsilon=0.95$, continuous bisection references are $\tau^\star=0.4076217487$ for $\bar{\kappa}=2$ and $\tau^\star=0.1798561595$ for $\bar{\kappa}=10$; the full audited range $\tau\ge0.05$ satisfies the criterion for $\bar{\kappa}=100$. These are operating boundaries for the cubic within the audited domain.\label{fig:retention-boundary}}
+\end{figure}
+\unskip
+
+\begin{table}[H]
+\caption{Summary of the controlled equal-smoothness EF$^{21}$ sensitivity analysis by average-conditioning stratum. The table reports the maximum normalized and absolute heterogeneity penalties, the observed range of $\rho^\star$, the 99\% retention boundary at $\epsilon=0.95$, and whether the full audited range satisfies the 99\% criterion.\label{tab:key-results}}
+\centering
+\begin{tabular}{cccccc}
+\toprule
+$\bar{\kappa}$ & Max. $H_{\mathrm{norm}}$ & Max. $H_{\mathrm{abs}}$ & $\rho^\star_{\min}$ & $\rho^\star_{\max}$ & $\tau^\star_{99\%}$\\
+\midrule
+2   & 0.050736 & 0.015650 & 0.250000 & 0.983908 & 0.407622\\
+10  & 0.016990 & 0.002103 & 0.728505 & 0.995427 & 0.179856\\
+100 & 0.002005 & 0.000030 & 0.967907 & 0.999493 & $\le 0.05$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Boundary and off-grid robustness}
+
+Figure 5 compares finite-grid boundary estimates with bisection references as the number of $\tau$ grid points increases. The principal boundary values remain stable under refinement to 1521 grid points. The deterministic off-grid audit likewise identifies no substantive ordering violation under the project's $1\times10^{-9}$ numerical interpretation tolerance, while the maximum cubic-root residual remains approximately $2\times10^{-15}$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/figure5_boundary_convergence.pdf}
+\caption{Stability of the 99\% retention boundary under increasing $\tau$-grid resolution. Finite-grid estimates at $\epsilon=0.95$ are compared with bisection references for the three conditioning strata. The grid-derived thresholds converge toward the continuous references as resolution increases, supporting the interpretation that the operating boundaries are not artifacts of a coarse parameter grid. The bisection procedure still evaluates the cubic numerically and therefore does not constitute an analytic convergence proof.\label{fig:boundary-convergence}}
+\end{figure}
+\unskip
+
+
+\subsection{Fixed-stratum symbolic audit}
+
+For each $\bar{\kappa}\in \{2,10,100\}$, the discriminant can also be factored separately into a positive rational prefactor, $(1-s)^6s^4$, and a bivariate polynomial in $(s,\tau)$. All 63 coefficients of this polynomial are strictly positive. The cubic therefore has three distinct real roots throughout the corresponding open equal-smoothness domains.
+
+This calculation is restricted to the three selected conditioning strata. It is kept as an independent check; the generic cubic-coordinate certificate given below covers a broader domain.
+
+
+
+\subsection{Full-regularity heterogeneity reduces to a mismatch coordinate}
+
+Allowing both $L_i$ and $\mu_i$ to vary does not change the empirical step size or $K_2$ as long as their arithmetic means are fixed. The remaining two-dimensional regularity dependence is therefore carried by the nonnegative gap $K_1-K_2$.
+
+The weighted-variance identity gives this gap a direct meaning. It measures dispersion in the local condition-shape coordinates $q_i$ and does not separately measure variation in $L_i$ or $\mu_i$. The dense audit contains 273,885 requested configurations, of which 258,400 satisfy $\mu_i\le L_i$. On these admissible cells, the moment identity, the invariant value of $K_2$, and the fixed-average factorization agree to machine precision.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/figure6_mismatch_geometry.pdf}
+\caption{Full-regularity mismatch geometry at fixed average conditioning. The heatmap shows the exact source coefficient gap $K_1-K_2$ over the two-dimensional ratio plane $(\tau_L,\tau_\mu)$ for $\bar{\kappa}=10$. The dashed diagonal $\tau_L=\tau_\mu$ is the proportional-heterogeneity path and forms an exact zero-mismatch valley. Cells violating the local regularity condition $\mu_i\le L_i$ are masked and receive no artificial values. The figure visualizes the controlled fixed-average factorization of the HAC Law coefficients.\label{fig:mismatch-geometry}}
+\end{figure}
+\unskip
+
+
+\subsection{Proportional heterogeneity leaves the cubic polynomial unchanged}
+
+The numerator of the fixed-average factorization contains $(\tau_L-\tau_\mu)^2$, and no other numerator factor vanishes on the positive admissible domain. Hence the zero-mismatch path is exactly $\tau_L=\tau_\mu$.
+
+The two workers need not be identical on this path. Their smoothness and strong-convexity constants may differ in magnitude, but the two regularity pairs scale proportionally. In that case, $K_1=K_2$, the empirical step size remains fixed, and the cubic coefficients are the same as in the homogeneous controlled case with the same $\bar{\kappa}$ and $\epsilon$.
+
+The distinction is therefore between \textbf{heterogeneity magnitude} and \textbf{regularity mismatch}. Raw heterogeneity alone does not create a penalty in the source empirical relation. The penalty appears when the smoothness and strong-convexity ratios no longer align.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/figure7_full_regularity_penalty.pdf}
+\caption{Full-regularity normalized contraction penalty under heavy compression. The heatmap shows the normalized penalty $(\rho^\star-\rho_{\mathrm{hom}})/(1-\rho_{\mathrm{hom}})$ at $\bar{\kappa}=10$ and $\epsilon=0.95$ across $(\tau_L,\tau_\mu)$. The aligned diagonal $\tau_L=\tau_\mu$ forms a zero-penalty valley because the cubic reduces exactly to the homogeneous controlled case on that path. Moving away from the diagonal activates the nonnegative mismatch coordinate and worsens the reproduced largest-root contraction prediction. Invalid local regularity cells remain masked.\label{fig:full-penalty}}
+\end{figure}
+\unskip
+
+
+\subsection{Regularity mismatch strictly worsens the largest-root prediction}
+
+\begin{Proposition}[Conditional mismatch principle]
+Under the reproduced cubic polynomial specified in HAC Law for $n=2$, fix $\bar L$, $\bar\mu$, and $\epsilon$, and parameterize local regularity by $(\tau_L,\tau_\mu)$ on the admissible domain. Then the empirical step size and $K_2$ are invariant, while the cubic depends on $(\tau_L,\tau_\mu)$ only through the nonnegative gap $K_1-K_2$. This gap vanishes if and only if $\tau_L=\tau_\mu$. Moreover, the selected largest root satisfies $\mathrm{d}\rho^\star/\mathrm{d}K_1>0$ on $0<s<1$ and $0<K_2\le K_1<1$; hence every admissible nonzero mismatch strictly increases the predicted contraction factor relative to the aligned path.
+\end{Proposition}
+
+On the cubic-coordinate domain $0<s<1$, $0<K_2\le K_1<1$, the symbolic certificate places all three roots of the source cubic in $(0,1)$ and shows that they are distinct. The largest root lies above $s$ and is simple, so implicit differentiation gives
+
+\[
+\frac{d\rho^\star}{dK_1}>0.
+\]
+
+For fixed average conditioning and compression, $K_2$ is constant and $K_1=K_2+(K_1-K_2)$. The mismatch factorization therefore gives the ordering
+
+\[
+\rho^\star(\tau_L,\tau_\mu)
+\ge
+\rho^\star(\tau,\tau),
+\]
+
+with strict inequality for every admissible cell satisfying $\tau_L\ne \tau_\mu$.
+
+Conditional on HAC Law, the smallest largest-root prediction on this controlled surface is attained on the aligned path.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{figures/figure8_rate_collapse.pdf}
+\caption{Collapse of two-dimensional regularity heterogeneity onto the single mismatch coordinate. For $\epsilon=0.95$ and $\bar{\kappa}\in\{2,10,100\}$, every admissible $(\tau_L,\tau_\mu)$ pair is plotted as normalized contraction penalty versus $K_1-K_2$. Within each conditioning stratum, the two-dimensional ratio pairs collapse onto a one-dimensional curve because $K_2$ and the reproduced empirical step size are fixed, with the cubic varying only through $K_1=K_2+(K_1-K_2)$. The monotone direction is consistent with the analytic sensitivity result $\mathrm{d}\rho^\star/\mathrm{d}K_1>0$.\label{fig:rate-collapse}}
+\end{figure}
+\unskip
+
+
