@@ -1,23 +1,37 @@
-# Sensitivity of the Two-Agent EF21 Empirical Law to Heterogeneous Regularity under Compression
+# Sensitivity of Two-Agent EF21 to Heterogeneous Regularity under Compression
 
-Curated public reproducibility repository for the working manuscript **“Sensitivity of the Two-Agent EF21 Empirical Law to Heterogeneous Regularity under Compression.”**
+Curated public reproducibility repository for the working manuscript **“Sensitivity of Two-Agent EF21 to Heterogeneous Regularity under Compression.”**
 
 Authors: Pack Kwan Low and Fu-Hsing Wang, Department of Information Management, Chinese Culture University.
 
 ## Scientific scope
 
-This study does **not** claim a new general convergence theorem for heterogeneous EF21. It independently reproduces the **two-agent Empirical Law 4.3** reported by Berg Thomsen, Taylor, and Dieuleveut and studies the structure and sensitivity of the resulting cubic contraction prediction under controlled communication compression and heterogeneous local regularity.
+This study does **not** claim a new general convergence theorem for heterogeneous EF21. It independently reproduces the heterogeneous two-agent empirical relation reported as **Empirical Law 4.3** by Berg Thomsen, Taylor, and Dieuleveut and studies the structure and sensitivity of the resulting cubic contraction prediction under controlled communication compression and heterogeneous local regularity.
+
+In the manuscript, this heterogeneous convergence characterization is referred to as the **Heterogeneity-Aware Convergence Law (HAC Law)**. HAC Law is a manuscript-defined name and shorthand; the source paper's formal label remains **Empirical Law 4.3**.
 
 The manuscript separates two notions that can otherwise be conflated:
 
 - **heterogeneity magnitude** — how different the workers' local regularity constants are; and
 - **regularity mismatch** — whether smoothness and strong-convexity heterogeneity are proportionally aligned across the two workers.
 
-All statements about the predicted contraction factor remain conditional on the reproduced Empirical Law 4.3.
+All statements about the predicted contraction factor remain conditional on the reproduced empirical relation.
 
 ## Current manuscript snapshot — 12 September 2026
 
-### 1. Equal-smoothness controlled baseline
+### 1. Independent reproduction and numerical audit
+
+The source cubic characterization is independently reconstructed and evaluated across **10,500 parameter configurations**.
+
+- Polynomial residuals are checked at every selected root.
+- The implementation is compared with a source helper pinned to a specific commit.
+- The homogeneous limit is checked against the proved EF21 rate.
+- Mutated-polynomial negative controls are required to fail the same checks.
+- Selected high-precision SDPA cases provide an additional solver-level reference.
+
+The source verification protocol also includes Lyapunov feasibility checks, a PEPit-based fallback agreement tolerance of `1e-4`, and a local tightness challenge at `0.99 * rho_star`. These are validation-protocol quantities, not universal accuracy bounds for the empirical relation.
+
+### 2. Equal-smoothness controlled baseline
 
 The baseline fixes two workers with equal local smoothness while varying local strong-convexity imbalance at fixed average conditioning.
 
@@ -29,7 +43,7 @@ The baseline fixes two workers with equal local smoothness while varying local s
 
 At compression error `epsilon = 0.95`, continuous bisection gives a 99% retention boundary of approximately `tau = 0.4076217487` for `kappa_bar = 2` and `tau = 0.1798561595` for `kappa_bar = 10`; the full audited range `tau >= 0.05` satisfies the criterion for `kappa_bar = 100`.
 
-### 2. Full-regularity fixed-average analysis
+### 3. Full-regularity fixed-average analysis
 
 The equal-smoothness restriction is then removed. Both arithmetic means are held fixed while smoothness and strong-convexity heterogeneity vary independently through `tau_L` and `tau_mu`.
 
@@ -37,13 +51,11 @@ The equal-smoothness restriction is then removed. Both arithmetic means are held
 - The reproduced empirical step size remains fixed at fixed average regularity and compression.
 - `K2` is invariant and equals `((kappa_bar - 1)/(kappa_bar + 1))^2`.
 - The remaining regularity dependence is carried by the nonnegative gap `K1 - K2`.
-- Exactly,
-
-  `K1 - K2 = Var_w(q_i)`, where `q_i = (L_i - mu_i)/(L_i + mu_i)`.
+- Exactly, `K1 - K2 = Var_w(q_i)`, where `q_i = (L_i - mu_i)/(L_i + mu_i)`.
 
 Under the fixed-average parameterization, this gap factors through `(tau_L - tau_mu)^2`. Therefore the proportional path `tau_L = tau_mu` is an exact zero-mismatch valley: the workers may remain heterogeneous in raw `L_i` and `mu_i`, but the reproduced cubic is unchanged from the homogeneous controlled cubic at the same average conditioning and compression.
 
-### 3. Generic cubic root and sensitivity certificate
+### 4. Generic cubic root and sensitivity certificate
 
 A separate Wolfram Language symbolic audit establishes, on the stated cubic-coordinate domain:
 
@@ -56,10 +68,11 @@ Combined with the fixed-average mismatch factorization, this means every admissi
 ## Repository layout
 
 - `data/` — curated manuscript-facing numerical summaries and symbolic-certificate summaries.
-- `src/ef21_stability/` — minimal numerical implementation of the reproduced two-agent Empirical Law 4.3 and controlled regularity analyses.
+- `src/ef21_stability/` — minimal numerical implementation of the reproduced two-agent empirical relation and controlled regularity analyses.
 - `scripts/reproduce_key_results.py` — compact reproduction script for the public results.
 - `requirements.txt` — Python dependencies.
-- `manuscript/` — submission-facing manuscript notes/package area.
+- `manuscript/manuscript.tex` — current LaTeX manuscript snapshot.
+- `manuscript/README.md` — manuscript scope and claim-boundary notes.
 
 The private research workspace is intentionally not mirrored here. Internal research logs, exploratory notes, novelty-audit materials, OSF workflow files, model/tool interaction records, and unpublished working artifacts are excluded.
 
@@ -81,6 +94,6 @@ The public JSON summaries include the equal-smoothness landscape, compression–
 
 ## Interpretation guardrail
 
-The key result is deliberately narrow: **the reproduced two-agent EF21 Empirical Law is sensitive to regularity mismatch, not merely to the magnitude of local heterogeneity.** The source empirical law itself is not promoted to a theorem, and the full fixed-average factorization and cubic sensitivity result are not claimed for arbitrary numbers of agents.
+The key result is deliberately narrow: **the reproduced heterogeneous two-agent EF21 empirical relation is sensitive to regularity mismatch, not merely to the magnitude of local heterogeneity.** The source empirical law itself is not promoted to a theorem, and the full fixed-average factorization and cubic sensitivity result are not claimed for arbitrary numbers of agents.
 
 Archival citation/DOI information will be added when the public release is frozen.
