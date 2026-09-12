@@ -1,0 +1,116 @@
+\section{Conclusion}
+
+In this paper, the sensitivity of two-agent EF$^{21}$ to heterogeneous local regularity is studied using the empirical relation reported in Ref.~\cite{thomsen2026tight} and referred to here as HAC Law. Before the sensitivity analysis, the evidential basis of the relation is examined using the source PEP and Lyapunov verification protocol and an independent reproduction of the complete 10,500-configuration cubic grid. The replay reaches a maximum polynomial residual of $1.742\times10^{-15}$ and recovers the homogeneous theoretical limit within $8.389\times10^{-13}$. These checks support numerical use of the cubic on the audited domain while preserving its empirical status.
+
+The equal-smoothness study shows that strong-convexity heterogeneity reduces the available contraction margin and that compression increases its relative effect. The full-regularity study gives a different view of the same problem. With the arithmetic means of smoothness and strong convexity fixed, the empirical step size and $K_2$ remain unchanged, while the remaining coefficient gap is the weighted dispersion of the local condition-shape coordinates. This gap contains the squared mismatch $(\tau_L-\tau_\mu)^2$.
+
+When the two heterogeneity ratios are aligned, the workers may still have different local regularity scales, but the cubic is unchanged from the homogeneous controlled case. A nonzero mismatch makes the gap positive and increases the predicted contraction factor. The generic root analysis also shows that the selected largest root increases strictly with $K_1$ at fixed $K_2$. The results therefore distinguish the amount of local heterogeneity from the mismatch between the two regularity ratios.
+
+Further work may examine whether a similar mismatch coordinate appears for $n>2$, either through performance-estimation methods or a separate convergence analysis. Stochastic large-scale experiments and the possible use of the mismatch quantity in adaptive weighting or compression-aware design also remain open directions.
+
+\authorcontributions{Author contributions will be finalized using the CRediT taxonomy before submission. All authors have read and agreed to the published version of the manuscript.}
+
+\funding{Funding information will be confirmed before submission.}
+
+\institutionalreview{Not applicable. This study did not involve human participants or animals.}
+
+\informedconsent{Not applicable.}
+
+\dataavailability{
+The analysis code, numerical summaries, symbolic-verification materials,
+and reproducibility scripts supporting this study are available in the
+public GitHub repository at
+\href{https://github.com/Jaycee871/Sensitivity-of-TwoAgent-EF21-to-Heterogeneous-Regularity-under-Compression}
+{Sensitivity of Two-Agent EF21 to Heterogeneous Regularity under Compression}.
+}
+
+\acknowledgments{During the preparation of this study and manuscript, the authors used ChatGPT (OpenAI; GPT-5.6 Sol) to assist with research-workflow design, code generation and review, computational experiment planning, interpretation checks, and manuscript drafting and editing. Wolfram Language 15.0.1 was used as an independent symbolic-computation environment for algebraic simplification and discriminant analysis. All AI-assisted outputs, code, numerical and symbolic results, citations, and manuscript text were reviewed and verified by the human authors, who take full responsibility for the content of the publication.}
+
+\conflictsofinterest{Fu-Hsing Wang serves as a Guest Editor of the Special Issue ``Artificial Intelligence and Algorithms'' in \emph{Mathematics}. Independent editorial handling by an Editorial Board member without a conflict of interest is requested. Any additional conflicts of interest will be confirmed and declared before submission.}
+
+\abbreviations{Abbreviations}{The following abbreviations are used in this manuscript:\\
+\noindent\begin{tabular}{@{}ll}
+EF & Error Feedback\\
+EF21 & Error Feedback 21\\
+PEP & Performance Estimation Problem\\
+\end{tabular}}
+
+\reftitle{References}
+\begin{thebibliography}{99}
+
+\bibitem{seide2014onebit}
+Seide, F.; Fu, H.; Droppo, J.; Li, G.; Yu, D.
+1-bit stochastic gradient descent and its application to data-parallel distributed training of speech DNNs.
+In \emph{Proceedings of Interspeech 2014};
+Singapore, 14--18 September 2014;
+pp. 1058--1062.
+\href{https://doi.org/10.21437/Interspeech.2014-274}
+{doi:10.21437/Interspeech.2014-274}.
+
+\bibitem{stich2018sparsified}
+Stich, S.U.; Cordonnier, J.-B.; Jaggi, M.
+Sparsified SGD with memory.
+In \emph{Advances in Neural Information Processing Systems};
+2018; Volume 31, pp. 4452--4463.
+
+\bibitem{karimireddy2019error}
+Karimireddy, S.P.; Rebjock, Q.; Stich, S.U.; Jaggi, M.
+Error feedback fixes SignSGD and other gradient compression schemes.
+In \emph{Proceedings of the 36th International Conference on Machine Learning};
+PMLR, 2019; Volume 97, pp. 3252--3261.
+
+\bibitem{richtarik2021ef21}
+Richt\'arik, P.; Sokolov, I.; Fatkhullin, I.
+EF21: A new, simpler, theoretically better, and practically faster error feedback.
+In \emph{Advances in Neural Information Processing Systems};
+2021; Volume 34, pp. 4384--4396.
+
+\bibitem{thomsen2026tight}
+Berg Thomsen, D.; Taylor, A.B.; Dieuleveut, A.
+A Tight Theory of Error Feedback Algorithms in Distributed Optimization.
+\emph{arXiv} \textbf{2026}, arXiv:2605.31594.
+\href{https://doi.org/10.48550/arXiv.2605.31594}
+{\nolinkurl{doi:10.48550/arXiv.2605.31594}}.
+
+\bibitem{goujaud2024pepit}
+Goujaud, B.; Moucer, C.; Glineur, F.; Hendrickx, J.M.; Taylor, A.B.; Dieuleveut, A.
+PEPit: Computer-assisted worst-case analyses of first-order optimization methods in Python.
+\emph{Math. Program. Comput.} \textbf{2024}, \emph{16}, 337--367.
+\href{https://doi.org/10.1007/s12532-024-00259-7}
+{doi:10.1007/s12532-024-00259-7}.
+
+\bibitem{richtarik2024reloaded}
+Richt\'arik, P.; Gasanov, E.; Burlachenko, K.
+Error Feedback Reloaded: From Quadratic to Arithmetic Mean of Smoothness Constants.
+In \emph{Proceedings of the 12th International Conference on Learning Representations (ICLR 2024)};
+2024.
+
+\bibitem{gao2024econtrol}
+Gao, Y.; Islamov, R.; Stich, S.U.
+EControl: Fast Distributed Optimization with Compression and Error Control.
+In \emph{Proceedings of the 12th International Conference on Learning Representations (ICLR 2024)};
+2024.
+
+\bibitem{drori2014performance}
+Drori, Y.; Teboulle, M.
+Performance of first-order methods for smooth convex minimization: A novel approach.
+\emph{Math. Program.} \textbf{2014}, \emph{145}, 451--482.
+\href{https://doi.org/10.1007/s10107-013-0653-0}
+{doi:10.1007/s10107-013-0653-0}.
+
+\bibitem{taylor2017exact}
+Taylor, A.B.; Hendrickx, J.M.; Glineur, F.
+Exact worst-case performance of first-order methods for composite convex optimization.
+\emph{SIAM J. Optim.} \textbf{2017}, \emph{27}, 1283--1313.
+\href{https://doi.org/10.1137/16M108104X}
+{doi:10.1137/16M108104X}.
+
+\bibitem{colla2026symmetries}
+Colla, S.; Hendrickx, J.M.
+Exploiting Agent Symmetries for Performance Analysis of Distributed Optimization Methods.
+\emph{Open J. Math. Optim.} \textbf{2026}, \emph{7}, Article 1, 1--42.
+\href{https://doi.org/10.5802/ojmo.49}
+{doi:10.5802/ojmo.49}.
+
+\end{thebibliography}
+\end{document}
