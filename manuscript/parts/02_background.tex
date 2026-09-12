@@ -1,0 +1,157 @@
+\section{Background and HAC Law}
+
+This section states HAC Law for the two-agent case used as the source relation for the present study and separates the quantities reproduced from Ref.~\cite{thomsen2026tight} from the algebraic reinterpretations developed here. HAC Law is not proved in the present work. All subsequent statements about its predicted contraction factor are conditional on the reproduced form of this source relation.
+
+\subsection{Distributed objective and communication compression}
+
+Consider the finite-sum distributed objective
+
+\[
+f(x)=\frac{1}{n}\sum_{i=1}^{n} f_i(x),
+\]
+
+with a central server coordinating local workers. Worker $i$ is associated with a smoothness constant $L_i$ and, in the heterogeneous strongly convex setting considered by HAC Law, a local strong-convexity constant $\mu_i$. Communication is compressed by a contractive operator with error level $\epsilon\in(0,1)$, consistent with the EF$^{21}$ setting and the reproduced source analysis \citep{richtarik2021ef21,thomsen2026tight}.
+
+\subsection{Source relation from HAC Law}
+
+The empirical relation reported by Berg Thomsen, Taylor, and Dieuleveut and referred to here as HAC Law addresses the heterogeneous EF$^{21}$ setting with $n=2$ \citep{thomsen2026tight}. The two workers may have different local smoothness constants $L_i$ and local strong-convexity constants $\mu_i$, while communication is governed by a contractive compression level $\epsilon\in(0,1)$.
+
+For $n=2$, define
+
+\[
+\Sigma_i=L_i+\mu_i,\qquad
+\Delta_i=L_i-\mu_i.
+\]
+
+The two regularity-dependent coefficients appearing in the source relation are
+
+\[
+K_1=
+\frac{\Delta_2^2\Sigma_1+\Delta_1^2\Sigma_2}
+{\Sigma_1\Sigma_2(\Sigma_1+\Sigma_2)},
+\qquad
+K_2=
+\left(
+\frac{\Delta_1+\Delta_2}
+{\Sigma_1+\Sigma_2}
+\right)^2.
+\]
+
+Let
+
+\[
+s=\sqrt{\epsilon},
+\qquad
+r(s)=\frac{(1-s)^2}{1+s}.
+\]
+
+HAC Law expresses the predicted optimal contraction factor $\rho^\star$ as the largest real root of the cubic polynomial \citep{thomsen2026tight}.
+
+\[
+Q(\rho)=\rho^3-A\rho^2+B\rho-s^4,
+\]
+
+where
+
+\[
+A=s(2+s)+r(s)(sK_1+K_2),
+\]
+
+and
+
+\[
+B=s^2\left[1+2s+r(s)(K_1+sK_2)\right].
+\]
+
+The same source relation associates this contraction prediction with the empirical optimal step size.
+
+\[
+\eta^\star=
+\frac{4}{(L_1+\mu_1)+(L_2+\mu_2)}
+\frac{1-s}{1+s}.
+\]
+
+Thus, for a specified pair of local regularity parameters and compression level, HAC Law maps the heterogeneous two-agent configuration to an empirical step size and a cubic whose largest real root gives the predicted optimal contraction factor. A smaller selected root corresponds to faster predicted linear contraction. A root closer to one corresponds to slower predicted contraction.
+
+The label \emph{empirical law} follows Ref.~\cite{thomsen2026tight}. This manuscript uses the relation as the analytical starting point for the subsequent sensitivity analysis. The structural, numerical, and symbolic results in the following sections are conditional on its stated $n=2$ form.
+
+\subsection{Evidence supporting the source relation}
+
+The source paper supports the empirical relation referred to here as HAC Law through numerical Performance
+Estimation Problem experiments and Lyapunov feasibility analysis. The candidate
+rate $\rho^\star$ is taken as the largest real root of the cubic polynomial,
+and the step size is set to the empirical optimum $\eta^\star$. The pair
+$(\rho^\star,\eta^\star)$ is checked for feasibility in the EF$^{21}$ and
+EF Lyapunov linear matrix inequalities. If the EF$^{21}$ feasibility check
+fails, the source protocol compares $\rho^\star$ with a simplified Lyapunov
+rate computed by PEPit and accepts the fallback check when the difference is
+within $10^{-4}$ \citep{thomsen2026tight,goujaud2024pepit}. The source
+protocol also tests
+
+\[
+\rho_{\mathrm{imp}}=0.99\rho^\star
+\]
+
+as a local tightness challenge. The source study reports no successful strict
+improvement in the verification experiments \citep{thomsen2026tight}.
+
+The $10^{-4}$ threshold is a fallback numerical agreement criterion, not a
+global error bound for HAC Law. Likewise, the factor $0.99$ tests
+whether a rate that is one percent smaller can be certified on the audited
+instances; it does not establish that HAC Law is universally
+accurate to one percent.
+
+\subsection{Independent reproduction of the cubic polynomial in HAC Law}
+
+A separate reproduction workflow was completed before the present sensitivity analysis. The workflow independently recomputed the cubic coefficients and selected roots over the complete 10,500-configuration grid used in the independent $n=2$ reproduction. For every configuration, it recorded the residual $|Q(\rho^\star)|$ and compared the independent calculation with the hash-pinned source helper. The homogeneous limit was also checked against the proved EF21 rate. A negative-control suite modified the polynomial and required the modified relation to fail the same checks. High-precision SDPA calculations were used as additional solver-level references on selected cases.
+
+The independent workflow also retains an explicit solver-scope limitation. The proprietary MOSEK workload was not re-executed in full. Completed hash-pinned source transcripts were audited where those solver results were required, while open-solver checks were executed independently. The purpose of this validation layer is therefore to test numerical reproducibility and consistency with available PEP and Lyapunov evidence. It does not promote HAC Law to a theorem.
+
+\subsection{Weighted-moment reinterpretation of the source coefficients}\label{sec:weighted-moment}
+
+To expose the regularity structure of the source coefficients, define the \emph{local condition-shape coordinate}
+
+\[
+q_i=
+\frac{\Delta_i}{\Sigma_i}
+=
+\frac{L_i-\mu_i}{L_i+\mu_i},
+\]
+
+and the corresponding normalized weights
+
+\[
+w_i=
+\frac{\Sigma_i}{\Sigma_1+\Sigma_2}.
+\]
+
+With these definitions, the source coefficients can be written exactly as
+
+\[
+K_1=\sum_{i=1}^{2} w_iq_i^2,
+\qquad
+K_2=\left(\sum_{i=1}^{2} w_iq_i\right)^2.
+\]
+
+Here, $K_1$ is the weighted second moment of the local condition-shape coordinates. The coefficient $K_2$ is the square of their weighted mean. Consequently,
+
+\[
+K_1-K_2
+=
+\operatorname{Var}_w(q_i)
+:=
+\sum_{i=1}^{2}
+w_i
+\left(
+q_i-\sum_{j=1}^{2}w_jq_j
+\right)^2.
+\]
+
+This identity is an exact algebraic rewriting of the coefficients appearing in HAC Law; it is not a new convergence law. Its role in the present study is interpretive: it shows that the coefficient gap measures the weighted dispersion of the local condition-shape coordinates. The fixed-average parameterization introduced later uses this representation to determine when regularity heterogeneity activates a mismatch penalty.
+
+\subsection{Nearby heterogeneity analyses}
+
+Prior EF$^{21}$ work already provides meaningful analyses of heterogeneity along different axes. Error Feedback Reloaded improves dependence on heterogeneous smoothness constants from a quadratic mean to an arithmetic mean and introduces smoothness-aware weighting \citep{richtarik2024reloaded}. Its regularity description centers on smoothness heterogeneity and does not model the paired local $(L_i,\mu_i)$ condition-shape mismatch studied here.
+
+EControl is another important neighboring analysis. It allows worker-dependent smoothness constants and imposes strong convexity on the averaged objective through a single global parameter; individual local objectives need not be strongly convex \citep{gao2024econtrol}. The present study addresses a complementary regime by examining how paired local $(L_i,\mu_i)$ structure interacts with compression within HAC Law. Smoothness-only and single-$\mu$ models do not represent this paired structure.
+
