@@ -2,6 +2,28 @@
 
 \subsection{Independent validation metrics}
 
+The independent reproduction grid follows the two-agent parameter sweep used for Empirical Law 4.3. For each worker, the local smoothness constant is selected from
+\[
+L_i\in\{1,10,100,1000\},
+\]
+and the local condition number is selected from
+\[
+\kappa_i\in\{2,10,100,1000,10000\}.
+\]
+This gives 20 possible local regularity configurations per worker. Because the two-agent relation is invariant to exchanging the worker labels, permutation-equivalent worker pairs are counted only once. The resulting two-worker grid therefore contains
+\[
+\binom{20+2-1}{2}=\binom{21}{2}=210
+\]
+distinct regularity configurations. Each of these 210 configurations is then evaluated at 50 equally spaced compression levels,
+\[
+\epsilon\in[0.05,0.95],
+\]
+yielding a total of
+\[
+210\times50=10{,}500
+\]
+parameter configurations. For each worker, the corresponding strong-convexity constant is obtained from $\mu_i=L_i/\kappa_i$. Before evaluating the cubic, the local smoothness constants are normalized by the largest $L_i$ in the worker pair, with the same scaling applied to the corresponding $\mu_i$. This normalization preserves the relevant condition numbers while avoiding redundant overall scale variation.
+
 The independent validation reports four complementary quantities. First, the cubic residual $|Q(\rho^\star)|$ checks whether the selected numerical root satisfies the stated polynomial. Second, the implementation difference compares the independently computed result with the pinned source helper. Third, the homogeneous-limit difference compares the heterogeneous cubic at the homogeneous parameter limit with the proved EF21 contraction rate from Theorem 3.1 of Ref.~\cite{thomsen2026tight}. Fourth, solver-level tightness checks test whether the improved target $0.99\rho^\star$ can be certified on the audited high-precision reference cells.
 
 Negative controls are included to distinguish reproducibility from a permissive numerical test. Each of the 10,500 grid cells is paired with a mutated-polynomial control. A valid validation procedure should accept the source polynomial and reject the modified relation. The validation outcomes are reported before the sensitivity results so that the numerical status of the source relation is explicit before it is used as an analytical reference.
@@ -217,4 +239,3 @@ At the largest simple real root, $Q'(\rho^\star)>0$. Therefore
 
 \subsection{AI-Assisted Research Workflow and Verification}
 AI-assisted tools were used in study design, code development, computational planning, and manuscript preparation; the scope of this assistance is disclosed in the Acknowledgments. Symbolic claims reported in this manuscript were independently checked with Wolfram Language 15.0.1.
-
