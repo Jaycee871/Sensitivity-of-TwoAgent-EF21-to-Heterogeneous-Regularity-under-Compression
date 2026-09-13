@@ -14,7 +14,7 @@ with a central server coordinating local workers. Worker $i$ is associated with 
 
 \subsection{Source relation from HAC Law}
 
-The empirical relation reported by Berg Thomsen, Taylor, and Dieuleveut and referred to here as HAC Law addresses the heterogeneous EF$^{21}$ setting with $n=2$ \citep{thomsen2026tight}. The two workers may have different local smoothness constants $L_i$ and local strong-convexity constants $\mu_i$, while communication is governed by a contractive compression level $\epsilon\in(0,1)$.
+HAC Law corresponds to Empirical Law 4.3 of Berg Thomsen, Taylor, and Dieuleveut for the heterogeneous EF$^{21}$ setting with $n=2$ \citep{thomsen2026tight}. The two workers may have different local smoothness constants $L_i$ and local strong-convexity constants $\mu_i$, while communication is governed by a contractive compression level $\epsilon\in(0,1)$.
 
 For $n=2$, define
 
@@ -77,7 +77,7 @@ The label \emph{empirical law} follows Ref.~\cite{thomsen2026tight}. This manusc
 
 \subsection{Evidence supporting the source relation}
 
-The source paper supports the empirical relation referred to here as HAC Law through numerical Performance
+The source paper supports HAC Law through numerical Performance
 Estimation Problem experiments and Lyapunov feasibility analysis. The candidate
 rate $\rho^\star$ is taken as the largest real root of the cubic polynomial,
 and the step size is set to the empirical optimum $\eta^\star$. The pair
@@ -154,4 +154,3 @@ This identity is an exact algebraic rewriting of the coefficients appearing in H
 Prior EF$^{21}$ work already provides meaningful analyses of heterogeneity along different axes. Error Feedback Reloaded improves dependence on heterogeneous smoothness constants from a quadratic mean to an arithmetic mean and introduces smoothness-aware weighting \citep{richtarik2024reloaded}. Its regularity description centers on smoothness heterogeneity and does not model the paired local $(L_i,\mu_i)$ condition-shape mismatch studied here.
 
 EControl is another important neighboring analysis. It allows worker-dependent smoothness constants and imposes strong convexity on the averaged objective through a single global parameter; individual local objectives need not be strongly convex \citep{gao2024econtrol}. The present study addresses a complementary regime by examining how paired local $(L_i,\mu_i)$ structure interacts with compression within HAC Law. Smoothness-only and single-$\mu$ models do not represent this paired structure.
-
